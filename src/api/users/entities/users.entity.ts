@@ -25,8 +25,8 @@ export class User {
   @Column({ name: 'user_password' })
   userPassword: string;
 
-  @OneToMany(() => Bet, (user) => user.userId, { cascade: true })
-  userBets: Bet[];
+  @OneToMany(() => Bet, (bets) => bets.user, { eager: true })
+  bets: Bet[];
 
   @CreateDateColumn({ name: 'user_created_at' })
   userCreatedAt: Date;

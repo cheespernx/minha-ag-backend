@@ -12,7 +12,7 @@ export interface AuthPayloadI {
   userId: string;
   userName: string;
   userEmail: string;
-  userBets: Bet[];
+  bets: Bet[];
 }
 
 function authError() {
@@ -53,13 +53,13 @@ export class AuthService {
     try {
       const accessToken = await this._sign(user);
 
-      const { userId, userName, userEmail, userBets } = user;
+      const { userId, userName, userEmail, bets } = user;
 
       const userReturn: UserInterface = {
         userId,
         userName,
         userEmail,
-        userBets,
+        bets,
       };
 
       if (sessionId) {
@@ -79,12 +79,12 @@ export class AuthService {
   }
 
   private async _sign(user: User) {
-    const { userId, userName, userEmail, userBets } = user;
+    const { userId, userName, userEmail, bets } = user;
     const payload: AuthPayloadI = {
       userId,
       userName,
       userEmail,
-      userBets,
+      bets,
     };
     return this._jwtService.sign(payload);
   }

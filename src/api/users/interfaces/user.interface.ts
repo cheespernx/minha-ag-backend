@@ -8,5 +8,5 @@ export interface UserInterface {
   userId: string;
   userName: string;
   userEmail: string;
-  userBets: Bet[];
+  bets: Bet[];
 }

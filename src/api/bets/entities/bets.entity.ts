@@ -14,9 +14,6 @@ export class Bet {
   @PrimaryGeneratedColumn('uuid')
   betId: string;
 
-  @Column({ name: 'user_id_fk' })
-  userId: string;
-
   @Column({ name: 'bet_cotation' })
   betCotation: string;
 
@@ -26,8 +23,8 @@ export class Bet {
   @Column({ name: 'bet_games' })
   betGames: string;
 
-  @ManyToOne(() => User, (userBets) => userBets.userId, { eager: true })
-  betUser: User;
+  @ManyToOne(() => User, (user) => user.bets)
+  user: User;
 
   @CreateDateColumn({ name: 'bet_created_at' })
   betCreatedAt: Date;

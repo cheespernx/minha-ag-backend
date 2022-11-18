@@ -1,10 +1,18 @@
-import { Body, Controller, Get, Post, Res, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { CreateUserDTO, GetUserDTO } from './dto';
 import { UsersService } from './users.service';
 import { camelizeKeys } from 'src/utils';
 import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 
-@Controller('api/v1/users')
+@Controller('api/v1/user')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
@@ -20,8 +28,8 @@ export class UsersController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  async getUser(@Body() requestData: GetUserDTO) {
-    const { user } = requestData;
+  async getUser(@Req() req) {
+    const { user } = req;
     return this.usersService.getUser(user.user_id);
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Bet } from './entities/bets.entity';
@@ -10,11 +10,20 @@ export class BetsService {
     private readonly betsRepository: Repository<Bet>,
   ) {}
 
-  async getBetsByUser(userId: string) {
+  async createNewBet(data) {
     try {
-      return await this.betsRepository.find({ where: { userId } });
+      let bet = new Bet();
+      bet = { ...data };
+      await this.betsRepository.save(bet);
     } catch (error) {
-      throw new NotFoundException(error.message);
+      throw new HttpException(
+        {
+          message:
+            'Ocorreu um erro durante a criação da sua aposta! - ' +
+            error.message,
+        },
+        500,
+      );
     }
   }
 }

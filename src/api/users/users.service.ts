@@ -38,7 +38,7 @@ export class UsersService {
   async getUser(userId: string) {
     try {
       return await this.usersRepository.findOneOrFail({
-        select: ['userId', 'userName', 'userEmail', 'userBets'],
+        select: ['userId', 'userName', 'userEmail', 'bets'],
         where: { userId },
       });
     } catch (error) {
